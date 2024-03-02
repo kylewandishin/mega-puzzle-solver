@@ -1,0 +1,29 @@
+{
+  "manifest_version": 3,
+  "name": "Letter-Boxed Solution Extractor",
+  "version": "1.0",
+  "permissions": ["scripting","tabs","activeTab","storage","debugger"],
+  "host_permissions" : ["https://www.nytimes.com/*","https://semantle.com/*"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://*.nytimes.com/*"],
+      "js": ["content.js","content-s.js"]
+    },{
+      "matches": ["https://semantle.com/*"],
+      "js": ["content-s.js","content.js"]
+    }
+  ],
+  "web_accessible_resources": [{
+    "resources": ["evil.js"],
+    "matches": ["https://*.nytimes.com/*"]
+  }],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "64" : "assets/biglogo.png"
+    }
+  }
+}
