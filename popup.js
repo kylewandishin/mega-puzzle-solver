@@ -1,4 +1,3 @@
-// Update the popup content with gameData
 document.addEventListener('DOMContentLoaded', function() {
 console.log(document.getElementById("solution"))
 let simplified = [];
