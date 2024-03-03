@@ -39,7 +39,7 @@ chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
 document.getElementById("autoSolve").addEventListener("click", function() {
   // Send a message to content.js to trigger the function
   console.log("button pressed");
-  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) { 
+  chrome.tabs.query({active: true, currentWindow: true},function(tabs) { 
     let url = tabs[0].url.toString();
     console.log(url);
     if(url.includes("letter-boxed")){

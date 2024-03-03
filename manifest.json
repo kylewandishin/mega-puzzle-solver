@@ -3,7 +3,7 @@
   "name": "Letter-Boxed Solution Extractor",
   "version": "1.0",
   "permissions": ["scripting","tabs","activeTab","storage","debugger"],
-  "host_permissions" : ["https://www.nytimes.com/*","https://semantle.com/*"],
+  "host_permissions" : ["https://www.nytimes.com/*","https://semantle.com/*", "http://10.203.188.63:8080/*"],
   "background": {
     "service_worker": "background.js"
   },

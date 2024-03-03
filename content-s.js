@@ -1,53 +1,56 @@
-let endpoint = "ENDPOINT_GOES_HERE";
+let endpoint = "10.203.188.63";
 let port = "8080";
 
-let word = "apple";
-let score;
+let word = `apple`;
+let score = `8.82`;
 let possible= [];
-let breaker = false
+let breaker = false;
+
 async function makeGuess(){
     document.querySelector("#guess").value = word;
     document.querySelector("#guess-btn").click();
-    score = document.querySelector("#guesses > tbody > tr.word-cold.local-guess > td:nth-child(3)").innerHTML;
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    score = document.querySelector("#guesses > tbody > tr:nth-child(2) > td:nth-child(3)").innerHTML;
 }
 
 async function newWord(){
-    setTimeout(async () => {
+    console.log("in new word");
+    console.log(word, score, possible)
     try {
-        let response = await fetch(`https://${endpoint}:${port}/api/getpossiblevalues`, {
+        let response = await fetch(`http://${endpoint}:${port}/api/getpossiblevalues`, {
             method: 'POST',
-            mode: 'no-cors',
-            credentials: 'include',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                guess: word,
-                score: score,
-                possible: possible
+                "guess": word,
+                "score": score,
+                "possible": possible
             })
         });
         let data = await response.json();
+        console.log(data);
         possible = data.possible;
         word = possible[0];
-        console.log(data);
+        
     } catch (error) {
         console.error('Error:', error);
-        breaker = true
+        breaker = true;
     }
-    },10000);
 }
 
 async function solveSemantle(){
     while(true){
         await makeGuess();
-        console.log("here");
+        console.log(score);
         await newWord();
-        console.log("here2");
+        console.log(word);
         console.log("iteration");
         if (parseFloat(score) === 100.00 || breaker){
             break;
         }
+        // Wait for 15 seconds before making the next guess
+        await new Promise(resolve => setTimeout(resolve, 3000));
     }
 }
 
@@ -55,7 +58,7 @@ chrome.runtime.onMessage.addListener( async (message, sender, sendResponse) => {
     console.log("RECEIVED SEMANTLE");
     // await message
     if (message.type === "semantle"){
-        chrome.storage.local.set({ gameData : word }, function() {
+        chrome.storage.local.set({ gameData : "apple" }, function() {
             console.log('best guess stored');
         });
     }
