@@ -8,10 +8,10 @@
 
 ## Features
 
-- semantle: automatically solves semantle using AI and linear algebra. this one needs a far more detailed [section](#semantle)
+- Semantle: automatically solves semantle using AI and linear algebra. We us Word2Vec to vectorize words in order to compare to other words.and apply linear properties in order to algorithmically find a target goal. [section](#semantle)
 - Letter Boxed: automatically solves letter boxed using webscraping internally. as basic as it sounds this required multiple script injections and unique solutions. [more info](#letter-boxed)
 - Wordle: automatically solves wordle using nytimes api call `https://www.nytimes.com/svc/wordle/v2/{formattedDate}.json`
-- Connections: automatically provides solutions to connections using api call `https://www.nytimes.com/svc/connections/v2/{formattedDate}.json`. unfortunatley it is not possible to auto solve this game yet [more info](#connections)
+- Connections: automatically provides solutions to connections using api call `https://www.nytimes.com/svc/connections/v2/{formattedDate}.json`. unfortunately it is not possible to auto solve this game yet [more info](#connections)
 
 - Auto Solve: currently only working for some games (all except [connections](#connections)). the button in the top right of the popup will allow for the automatic solving of the puzzles
 
@@ -35,10 +35,9 @@ We welcome contributions from the community. If you have any ideas, bug fixes, o
 ## Semantle
 (please add documentation here)<br/>
 vauge description of the flask api...<br/>
-describe calculations<br/>
-describe algorithm used<br/>
+We performed cosine similarity on the word we guessed with a list of possible words based on how that far that word is from the target word. Based on that, we can update the list of possible words accordingly. We can repeat these steps until the length of the possible words is just 1 or we find the word with a score of 110%.
 
-## Connetions
+## Connections
 this is our pressing issue...<br/>
 connections does not allow for simulated mouse events using dispatchEvent() or click()<br/>
 connections uses isTrusted which blocks all simulated clicks. this means we cannot auto solve the game.<br/>
